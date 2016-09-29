@@ -1,0 +1,31 @@
+* {margin: 0; padding: 0;}
+#Panel .menu {
+    position: absolute;
+    z-index: 50;
+    width:100%;
+    background:#eee;
+}
+#Panel .menu .active{
+    background:yellow;
+}
+.page{
+    padding: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+    width:auto;
+}
+.page p{
+    margin: 20px 0;
+}
+.Page1{
+    background:#ccc;
+}
+.Page2{
+    background:#ddd;
+}
+.Page3{
+    background:#ccc;
+}
+.Page4{
+    background:#ddd;
+}
