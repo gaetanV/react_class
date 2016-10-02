@@ -1,11 +1,32 @@
 (function() {
     'use strict';
     Page1= React.createClass({
+        handleClick: function(e){
+             $(e.target).css({"background":"blue"});
+        
+            
+            var callback=function(e){
+                
+                
+               if(e.etat=="click"){
+                    $(e.target).css({"background":"white"});
+               }
+               if(e.etat=="longclick"){
+                    $(e.target).css({"background":"red"});
+               }
+               if(e.etat=="longclickend"){
+                    $(e.target).css({"background":"white"});
+               }
+               
+            }
+            DOM.onlongclick(e,callback)
+            
+        },
         render: function() {
             return (
-                <div className="page">
+                <div  className="page">
                     <h1>Page 1</h1>
-                    <p>
+                    <p className="longclick" onMouseDown={this.handleClick} id="com">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Praesent quis metus sed metus convallis efficitur sit amet sed tortor. 
                         Integer egestas lectus ac molestie ultricies. Nam ultricies volutpat libero id egestas.
@@ -17,7 +38,7 @@
                         Donec viverra ultrices nulla nec ullamcorper. Proin dictum ipsum a tellus efficitur, id rhoncus leo vestibulum
                         . Morbi consectetur massa tempor eros hendrerit convallis. 
                     </p>
-                     <p>
+                     <p className="longclick" onMouseDown={this.handleClick}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                         Praesent quis metus sed metus convallis efficitur sit amet sed tortor. 
                         Integer egestas lectus ac molestie ultricies. Nam ultricies volutpat libero id egestas.

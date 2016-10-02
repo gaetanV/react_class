@@ -29,3 +29,10 @@
 .Page4{
     background:#ddd;
 }
+.longclick{
+    border:#ddd solid 1px;
+    padding: 10px; 
+    background: #fff;
+    transition:"all 1s ease-out";
+    -webkit-transition:"all 1s ease-out";
+}

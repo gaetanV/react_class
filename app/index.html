@@ -22,9 +22,6 @@
          <div id="Panel"></div>
 
          <script  type="text/babel">
-
- 
-            DOM.selection(false);
             ReactDOM.render(
                     <Panel  object={[
                     {element:Page1,title:"Page1"},{element:Page2,title:"Page2"},{element:Page3,title:"Page3"},{element:Page4,title:"Page4"}
@@ -32,7 +29,7 @@
                     />
             ,document.getElementById('Panel')
             );
-
+          DOM.selection(false);
          </script>
     </body>
 </html>

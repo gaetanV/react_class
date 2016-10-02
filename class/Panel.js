@@ -3,13 +3,8 @@
     Panel = React.createClass({
         getInitialState: function() {return {animate:false,nbPanel:0,active:false,panel:[],panelWidth:0,Panel,scroll:false};},
         componentDidMount: function() {
-            
-           
             var vm=this,count=this.props.object.length;
             this.state.Panel=$(ReactDOM.findDOMNode(vm.refs.Panel));
-            
-      
-            
             $(ReactDOM.findDOMNode(vm.refs.Main)).css({
                  overflow:"hidden",
                 
@@ -40,9 +35,7 @@
         },
         refreshDom:function(){
                 $(ReactDOM.findDOMNode(this.refs.Main)).css({  width: $(ReactDOM.findDOMNode(this.refs.Main)).parent().css("width")});
-            
                  this.state.panelWidth=this.state.Panel.outerWidth()/this.state.nbPanel;
-   
                  this.state.Panel.css({transition:"none","-webkit-transition":"none",left: -this.state.panelWidth*this.state.active+"px"});
                  this.state.scroll=$(this.state.panel[this.state.active]).outerHeight()>this.state.Panel.outerHeight()?true:false;
                  if(!this.state.scroll){
@@ -51,8 +44,8 @@
                 this.forceUpdate();
         },
         onmouseWheel:function(e){
-            
-            if(!vm.state.scroll){return false;}
+          
+            if(!this.state.scroll){return false;}
             var cible=this.state.panel[this.state.active];
      
             var cibleHeight=cible.outerHeight();
@@ -98,9 +91,7 @@
 
             var vm=this;
             function moveX(){
-            
                 var callback=function (dom){
-                   
                     var panelWidth=vm.state.panelWidth;
                     var cran=0;
                     var cible=0;
@@ -110,11 +101,7 @@
                         cran=Math.round((-dom.posEnd.x)/panelWidth);
                     }
                     if(cran<0||cran>vm.state.nbPanel-1){cran=cran<0?0:vm.state.nbPanel-1;}
-           
-                    
                     vm.panel(cran);
-                   
-                   
                     vm.state.animate=false;
                 }
                 vm.state.Panel.css({transition:"none","-webkit-transition":"none"});
