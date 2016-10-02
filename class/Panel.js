@@ -84,7 +84,7 @@
         handleClick: function(e){
             if(!this.state.animate){
                 this.state.animate=true;
-                DOM.direction(e,function(movement){
+                DOM.findYourWay(e,function(movement){
                 var direction=Math.abs(movement.x)>Math.abs(movement.y);
                 direction?moveX():moveY();
             },function(){vm.state.animate=false;});}

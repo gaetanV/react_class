@@ -2,14 +2,16 @@
     'use strict';
     Page1= React.createClass({
         handleClick: function(e){
-             $(e.target).css({"background":"blue"});
-        
-            
+             
+            var cancel=function(e){
+                   $(e.target).css({"background":"white"});
+            } 
             var callback=function(e){
                 
                 
                if(e.etat=="click"){
-                    $(e.target).css({"background":"white"});
+                   $(e.target).css({"background":"blue"});
+                   
                }
                if(e.etat=="longclick"){
                     $(e.target).css({"background":"red"});
@@ -19,7 +21,7 @@
                }
                
             }
-            DOM.onlongclick(e,callback)
+            DOM.onlongclick(e,callback,cancel)
             
         },
         render: function() {
