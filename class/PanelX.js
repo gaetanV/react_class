@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    Panel = React.createClass({
+    PanelX = React.createClass({
         getInitialState: function() {return {animate:false,nbPanel:0,active:false,panel:[],panelWidth:0,Panel,scroll:false};},
         componentDidMount: function() {
             var vm=this,count=this.props.object.length;
@@ -21,7 +21,7 @@
                 width:count*100+"%",
             });
 
-            this.state.Panel.find(".panel").css({"overflow-y": "hidden",float:"left",cursor:"grab",height:"100%",width:100/count+"%"}); 
+            this.state.Panel.find(".panelX").css({"overflow-y": "hidden",float:"left",cursor:"grab",height:"100%",width:100/count+"%"}); 
             this.state.Panel.find(".panelScroll").css({  position: "relative"}); 
           
              $(ReactDOM.findDOMNode(vm.refs.Menu)).find("div").css({width:100/count+"%",float:"left"}); 
@@ -82,15 +82,19 @@
            
         },
         handleClick: function(e){
+             var vm=this;
             if(!this.state.animate){
+              
                 this.state.animate=true;
                 DOM.findYourWay(e,function(movement){
+                    
                 var direction=Math.abs(movement.x)>Math.abs(movement.y);
                 direction?moveX():moveY();
             },function(){vm.state.animate=false;});}
 
-            var vm=this;
+           
             function moveX(){
+              
                 var callback=function (dom){
                     var panelWidth=vm.state.panelWidth;
                     var cran=0;
@@ -144,7 +148,7 @@
                     </nav> 
                     <section ref="Panel" className="PanelContenair" onMouseDown={(e) => this.handleClick(e)}>  
                         {this.props.object.map(function(Result,i){return (
-                            <div   key={i} className={"panel "+Result.element.displayName}>
+                            <div   key={i} className={"panelX "+Result.element.displayName}>
                                 <div  ref={"panel"+i} className="panelScroll" ><Result.element />  </div>
                             </div>
                         )},this)}   

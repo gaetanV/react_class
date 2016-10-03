@@ -203,22 +203,34 @@ var DOM;
             } 
 
             var startFindYourWay=function(e,callback,cancel){
-                dom.move="whereYouGo";
-                dom.FindYourWay={
-                    callback:callback,
-                    cancel:cancel,
-                    mouseStart:{x:e.clientX,y:e.clientY},
-                    timeStart:getTime()
+                if(dom.FindYourWay&&dom.move=="whereYouGo"){
+                    dom.FindYourWay.callback.push(callback);
+                    dom.FindYourWay.cancel.push(cancel);
+                 
+                }else{
+                    dom.move="whereYouGo";
+                    dom.FindYourWay={
+                        callback:[callback],
+                        cancel:[cancel],
+                        mouseStart:{x:e.clientX,y:e.clientY},
+                        timeStart:getTime()
+                    }
                 }
+               
             }
             var stopFindYourWay=function(e){
+                
                dom.move=false;
-               dom.FindYourWay.callback({x:e.clientX-dom.FindYourWay.mouseStart.x,y:e.clientY-dom.FindYourWay.mouseStart.y});
+               for(var i in dom.FindYourWay.callback){
+                   dom.FindYourWay.callback[i]({x:e.clientX-dom.FindYourWay.mouseStart.x,y:e.clientY-dom.FindYourWay.mouseStart.y});
+               }
                dom.FindYourWay=false; 
             }
             var cancelFindYourWay=function(){
                dom.move=false;
-               dom.FindYourWay.cancel();
+                for(var i in dom.FindYourWay.cancel){
+               dom.FindYourWay.cancel[i]();
+                }
                dom.FindYourWay=false;
             }
             var startDragAndDrop=function(domNode,way,speed,callback){
