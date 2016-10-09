@@ -16,7 +16,7 @@
             //////// BUG CSS HEIGHT REZISE
             this.state.Panel.css({
                  height: count*100+"%",
-                 
+                 transition:"all 0.5s ease-out","-webkit-transition":"all 0.5s ease-out",
                 position: "absolute",
                 overflow:"hidden",
                 width:"100%",
@@ -25,6 +25,8 @@
             this.state.active=0;
               this.state.Panel.find(".panelY").css({"overflow-y": "hidden",cursor:"grab",height:window.innerHeight+"px",width:"100%"}); 
               this.state.panelHeight=this.state.Panel.outerHeight()/this.state.nbPanel;
+              
+              this.refs.Panel.touchevent('touchY', this.moveY);
             
         },
         refreshDom:function(){
@@ -38,28 +40,12 @@
             var panelHeight=vm.state.panelHeight;
             
    
-            this.state.Panel.css({transition:"all 0.5s ease-out","-webkit-transition":"all 0.5s ease-out",top: -panelHeight*index+"px"});
+            this.state.Panel.css({top: -panelHeight*index+"px"});
             vm.state.active=index;
-            
-          
-          
-           
+ 
         },
-        handleClick: function(e){
-            var vm=this;
-             if(!this.state.animate){
-               
-                this.state.animate=true;
-                DOM.findYourWay(e,function(movement){
-                     
-                var direction=Math.abs(movement.x)>Math.abs(movement.y);
-                 
-                direction?moveX():moveY();
-            },function(){vm.state.animate=false;});}
-
-            
-            
-            function moveY(){
+        moveY: function (){
+                var vm=this;
                 var callback=function (dom){
                     
                    var panelHeight=vm.state.panelHeight;
@@ -77,23 +63,15 @@
                     vm.state.animate=false;
                 
                 }
-                
-                
                  var cible=$(vm.state.Panel);
-                 vm.state.Panel.css({transition:"none","-webkit-transition":"none"});
-                 DOM.move(cible,"y",1,callback);
-               
-            
-            }
-            function moveX(){
-                 vm.state.animate=false;
-            }
+                 cible.move("y",1,callback);
         },
+   
         render: function() {
             return (
                 <div ref="Main">
                
-                    <section ref="Panel" className="PanelContenair" onMouseDown={(e) => this.handleClick(e)}>  
+                    <section ref="Panel" className="PanelContenair" >  
                         {this.props.object.map(function(Result,i){return (
                             <div   key={i} className={"panelY "+Result.element.displayName}>
                                 <div  ref={"panel"+i} className="panelScroll" ><Result.element />  </div>

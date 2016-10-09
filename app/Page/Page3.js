@@ -3,6 +3,7 @@
     Page3= React.createClass({
         render: function() {
             return (
+                       <ScrollY> 
                 <div className="page">
                     <h1>Page 3</h1>
                     <p>
@@ -16,6 +17,7 @@
                         ligula neque ut velit. Curabitur aliquet, ante non commodo pulvinar, orci ipsum dignissim felis, eu gravida massa erat vel risus.  
                     </p>
                 </div>
+                   </ScrollY>
             )
         }
     });
