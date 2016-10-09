@@ -4,7 +4,8 @@
         
         componentDidMount: function() {
             $(this.refs.Scroll).css({position: "relative",transition:"all 0.5s ease-out","-webkit-transition":"all 0.5s ease-out"}); 
-            
+             this.refs.Scroll.touchevent('scrollUp', this.scrollUp);
+              this.refs.Scroll.touchevent('scrollDown', this.scrollDown);
             this.refs.Scroll.touchevent('touchY', this.moveY);
         },
         
@@ -27,29 +28,33 @@
             }
        
         },
-         onmouseWheel:function(e){
-          
-            if(!this.state.scroll){return false;}
-            var cible=this.state.panel[this.state.active];
-     
+        scrollDown:function(e){
+             var cran=300;
+             var cible=$(this.refs.Scroll);
             var cibleHeight=cible.outerHeight();
-           
+            var y=parseInt(cible.css("top"));
+               if(-y+cran<(cibleHeight-cible.parent().outerHeight())){
+                    y-=cran;
+                }
+                else{y=-(cibleHeight-cible.parent().outerHeight());}
+                cible.css({top:y+"px"})
+        },
+         scrollUp:function(e){
+          
+            var cible=$(this.refs.Scroll);
+    
             var y=parseInt(cible.css("top"));
             var cran=200;
-            if(!e){ 
+           
                 if(y<0){ 
                    
                     y+=cran; 
                     if(y>0){y=0;};
                 }
-            }
-            else{
-                if(-y+cran<(cibleHeight-this.state.Panel.outerHeight())){
-                    y-=cran;
-                }
-                else{y=-(cibleHeight-this.state.Panel.outerHeight());}
-            }
-            this.state.panel[this.state.active].css({transition:"all 0.1s linear","-webkit-transition":"all 0.1s linear",top:y+"px"})
+        
+             
+          
+            cible.css({top:y+"px"})
         },
         render: function() {
             return (
