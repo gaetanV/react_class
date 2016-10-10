@@ -53,9 +53,9 @@
                     var cran=0;
                     var cible=0;
                     if(dom.vitesse.y>3){
-                        cran=dom.posStart.y-dom.posEnd.y>0?Math.ceil((-dom.posEnd.y)/panelHeight):Math.floor((-dom.posEnd.y)/panelHeight);
+                        cran=dom.pos.start.y-dom.pos.end.y>0?Math.ceil((-dom.pos.end.y)/panelHeight):Math.floor((-dom.pos.end.y)/panelHeight);
                     }else{
-                        cran=Math.round((-dom.posEnd.y)/panelHeight);
+                        cran=Math.round((-dom.pos.end.y)/panelHeight);
                     }
                     if(cran<0||cran>vm.state.nbPanel-1){cran=cran<0?0:vm.state.nbPanel-1;}
             

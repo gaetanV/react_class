@@ -40,7 +40,7 @@
             this.state.active=0;
             this.refreshDom();
            
-            DOM.onresize("x","Panel",this.refreshDom);
+            this.state.Panel.touchevent("resizeX",this.refreshDom);
             this.panel(0);
         },
         refreshDom:function(){
@@ -66,13 +66,14 @@
 
                 var vm =this;
                 var callback=function (dom){
+                    console.log("callback");
                     var panelWidth=vm.state.panelWidth;
                     var cran=0;
                     var cible=0;
                     if(dom.vitesse.x>3){
-                        cran=dom.posStart.x-dom.posEnd.x>0?Math.ceil((-dom.posEnd.x)/panelWidth):Math.floor((-dom.posEnd.x)/panelWidth);
+                        cran=dom.pos.start.x-dom.pos.end.x>0?Math.ceil((-dom.pos.end.x)/panelWidth):Math.floor((-dom.pos.end.x)/panelWidth);
                     }else{
-                        cran=Math.round((-dom.posEnd.x)/panelWidth);
+                        cran=Math.round((-dom.pos.end.x)/panelWidth);
                     }
                     console.log(cran);
                     if(cran<0||cran>vm.state.nbPanel-1){cran=cran<0?0:vm.state.nbPanel-1;}

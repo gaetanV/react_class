@@ -16,9 +16,9 @@
            
             var vm=this;
             var callback=function (dom){
-                       if(-dom.posEnd.y<0||-dom.posEnd.y>(cibleHeight-panelHeight)){
+                       if(-dom.pos.end.y<0||-dom.pos.end.y>(cibleHeight-panelHeight)){
                        var x=0;
-                       if(-dom.posEnd.y>0){ x=-cibleHeight+panelHeight;}
+                       if(-dom.pos.end.y>0){ x=-cibleHeight+panelHeight;}
                                cible.css({top:x+"px"});
                        };                 
             }
