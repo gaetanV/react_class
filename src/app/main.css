@@ -1,6 +1,8 @@
 * {margin: 0; padding: 0;}
 .menu {
+    width:500px;
     position: absolute;
+    top:0;
     z-index: 50;
     width:100%;
     background:#eee;
@@ -8,6 +10,19 @@
 .menu .active{
     background:yellow;
 }
+.menu div {
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+#contenair {
+   position: absolute;
+   top:30px;
+   width: 100%;
+   bottom:0;
+}
+
 .page{
     padding: 10px;
     max-width: 900px;
@@ -30,7 +45,7 @@
     background:#ddd;
 }
 .longclick{
- 
+
     padding: 10px; 
     background: #fff;
     transition:"all 1s ease-out";

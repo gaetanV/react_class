@@ -7,9 +7,7 @@ import Page7 from 'pageY/Page7';
 const Page2= React.createClass({
         render: function() {
             return (  
-                  <div>
-                    <PanelY  object={[Page5,Page6,Page7]}/>
-                  </div>
+                    <PanelY   object={[Page5,Page6,Page7]}/>
             )
         }
 });

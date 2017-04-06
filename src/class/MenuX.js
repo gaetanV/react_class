@@ -9,10 +9,9 @@ const MenuX = React.createClass({
     },
     componentDidMount: function () {  
         if(this.props.interface instanceof PanelX_Interface === false){throw ("error violation injector");}
-        var count = this.props.object.length;
         this.props.interface.extend(this);
         this.state.interface = this.props.interface;
-        $(ReactDOM.findDOMNode(this.refs.Menu)).find("div").css({width: 100 / count + "%", float: "left"});
+        $(ReactDOM.findDOMNode(this.refs.Menu)).find("div").css({width: 100 / this.props.object.length + "%", float: "left"});
     },
     panel: function (index) {
         this.state.interface.panel(index); 
@@ -24,15 +23,9 @@ const MenuX = React.createClass({
     },
     render: function() {
         return (
-                <nav  ref="Menu" className="menu">
-                    <nav>
-                    {this.props.object.map(
-                        (Result,i) => {
-                            return(<div  ref={"menu"+i} key={i} onClick={() => this.panel(i)}>{Result}</div>)
-                        }
-                    )}
-                   </nav>
-                </nav> 
+            <nav  ref="Menu" className="menu">
+                {this.props.object.map((Result,i) => {return(<div  ref={"menu"+i} key={i} onClick={() => this.panel(i)}>{Result}</div>)})}
+            </nav> 
         );
      }
 });

@@ -11,14 +11,23 @@ import Page2 from 'pageX/Page2';
 import Page3 from 'pageX/Page3';
 import Page4 from 'pageX/Page4';
 
-var panelInterface = new PanelX_Interface();
+var panelInterface = new PanelX_Interface(MenuX);
 
 ReactDOM.render(
-<section>
-        <MenuX  interface={panelInterface} object={["page1","page2","page3","page4"]}/>
-        <PanelX interface={panelInterface} object={[Page1,Page2,Page3,Page4]}/>
-</section>
-,
-document.getElementById('Panel')
+        <section>
+            <MenuX  interface={panelInterface} object={["page1", "page2", "page3", "page4"]}/>
+            <aside>
+            <div id="a">
+            <div id="b">b</div>
+            </div>
+            </aside>
+            <div id="contenair">
+
+                <PanelX interface={panelInterface} object={[Page1, Page2, Page3, Page4]}/>
+        
+            </div>
+        </section>
+        ,
+        document.getElementById('Panel')
 );
 DOM.selection(false);
