@@ -9,7 +9,6 @@ const PanelY = React.createClass({
     },
     componentDidMount: function () {
         var count = this.props.object.length;
-
         this.state.Panel = $(ReactDOM.findDOMNode(this.refs.Panel));
         $(ReactDOM.findDOMNode(this.refs.Main)).css({
             overflow: "hidden",
@@ -29,10 +28,12 @@ const PanelY = React.createClass({
         this.state.Panel.find(".panelY").css({"overflow-y": "hidden", cursor: "grab", height: window.innerHeight + "px", width: "100%"});
         this.state.panelHeight = this.state.Panel.outerHeight() / this.state.nbPanel;
         this.refs.Panel.touchevent('touchY', this.moveY);
-
+        this.state.Panel.touchevent("resizeY", this.refreshDom);
     },
     refreshDom: function () {
-
+        $(ReactDOM.findDOMNode(this.refs.Main)).css({height: $(ReactDOM.findDOMNode(this.refs.Main)).parent().css("height")});
+        this.state.panelHeight = this.state.Panel.outerHeight() / this.state.nbPanel;  
+        this.forceUpdate();
     },
     panel: function (index) {
         var panelHeight = this.state.panelHeight;
@@ -63,10 +64,10 @@ const PanelY = React.createClass({
             <div ref="Main">
                 <section ref="Panel" className="PanelContenair" >  
                     {this.props.object.map(
-                            function(Result,i){
+                            (Result,i) => {
                                 return (
-                                    <div key={i} className={"panelY "+Result.element.displayName}>
-                                         <div  ref={"panel"+i} className="panelScroll" ><Result.element/></div>
+                                    <div key={i} className={"panelY "+Result.displayName}>
+                                         <div  ref={"panel"+i} className="panelScroll" ><Result/></div>
                                     </div>
                                 )
                             }

@@ -2,20 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import DOM from 'class/DOM';
+import PanelX_Interface from 'class/PanelX_Interface';
 
 const PanelX = React.createClass({
     getInitialState: function () {
-        return {animate: false, nbPanel: 0, active: false, panel: [], panelWidth: 0, Panel: "", scroll: false};
+        return {interface: false,animate: false, nbPanel: 0, active: false, panel: [], panelWidth: 0, Panel: "", scroll: false};
     },
     componentDidMount: function () {
-        var count = this.props.object.length;
+        if(this.props.interface instanceof PanelX_Interface === false){throw ("error violation injector");}
+        var count = this.props.object.length;      
+        this.props.interface.extend(this);
+        this.state.interface = this.props.interface;
+       
         this.state.Panel = $(ReactDOM.findDOMNode(this.refs.Panel));
         $(ReactDOM.findDOMNode(this.refs.Main)).css({
             overflow: "hidden",
             width: $(ReactDOM.findDOMNode(this.refs.Main)).parent().css("width"),
             height: "100%",
             position: "absolute",
-
         });
         this.state.Panel.css({
             height: "100%",
@@ -27,7 +31,6 @@ const PanelX = React.createClass({
         });
         this.refs.Panel.touchevent('touchX', this.moveX);
         this.state.Panel.find(".panelX").css({"overflow-y": "hidden", float: "left", cursor: "grab", height: "100%", width: 100 / count + "%"});
-        $(ReactDOM.findDOMNode(this.refs.Menu)).find("div").css({width: 100 / count + "%", float: "left"});
         for (var i = 0; i < count; i++) {
             this.state.panel.push($(ReactDOM.findDOMNode(this.refs["panel" + i])));
         }
@@ -45,8 +48,7 @@ const PanelX = React.createClass({
     },
     panel: function (index) {
         var panelWidth = this.state.panelWidth;
-        $(ReactDOM.findDOMNode(this.refs["menu" + this.state.active])).removeClass("active");
-        $(ReactDOM.findDOMNode(this.refs["menu" + index])).addClass("active");
+        this.state.interface.menu(index);
         this.state.Panel.css({left: -panelWidth * index + "px"});
         this.state.active = index;
         this.state.scroll = this.state.panel[index].outerHeight() > this.state.Panel.outerHeight() ? true : false;
@@ -71,19 +73,11 @@ const PanelX = React.createClass({
     render: function() {
         return (
             <div ref="Main">
-                <nav  ref="Menu" className="menu">
-                    <nav>
-                    {this.props.object.map(
-                        (Result,i) => {
-                            return(<div  ref={"menu"+i} className={Result.element.displayName+"_menu"} key={i} onClick={() => this.panel(i)}>{Result.title}</div>)
-                        }
-                    )}
-                   </nav>
-                </nav> 
+         
                 <section ref="Panel" className="PanelContenair" >  
                     {this.props.object.map(
-                            function(Result,i){
-                                 return (<div  key={i} className={"panelX "+Result.element.displayName}><Result.element /></div>)
+                            (Result,i) => {
+                                 return (<div  key={i} className={"panelX "+Result.displayName}><Result/></div>)
                             }
                     )}   
                 </section>
