@@ -1,8 +1,8 @@
-(function() {
-    'use strict';
-    Page4= React.createClass({
-        render: function() {
-            return (
+import React from 'react';
+
+const Page4 = React.createClass({
+    render: function () {
+        return (
                 <div className="page">
                     <h1>Page 4</h1>
                     <p>
@@ -13,7 +13,8 @@
                         vitae laoreet odio blandit. Integer orci dui, iaculis vel mattis eu, facilisis a arcu. Aenean venenatis sem quis velit euismod varius. 
                     </p>
                 </div>
-            )
-        }
-    });
-})(); 
+                )
+    }
+});
+
+export default Page4;

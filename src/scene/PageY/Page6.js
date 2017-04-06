@@ -1,11 +1,10 @@
-(function() {
-    'use strict';
-    Page3= React.createClass({
-        render: function() {
-            return (
-                       <ScrollY> 
-                <div className="page">
-                    <h1>Page 3</h1>
+import React from 'react';
+
+const  Page6 = React.createClass({
+    render: function() {
+        return (
+            <div className="page">
+            <h1>Page 6</h1>
                     <p>
                         Nam sed facilisis mi, ut elementum quam. Etiam enim augue, 
                         tempus sit amet purus at, tempor accumsan massa. Aliquam a ornare neque, 
@@ -16,9 +15,9 @@
                         nec dignissim sapien metus sed neque. Praesent porta, turpis vel sodales sagittis, tellus metus dictum ligula, vel consectetur 
                         ligula neque ut velit. Curabitur aliquet, ante non commodo pulvinar, orci ipsum dignissim felis, eu gravida massa erat vel risus.  
                     </p>
-                </div>
-                   </ScrollY>
-            )
-        }
-    });
-})(); 
+            </div>
+        )
+    }
+});
+    
+export default Page6;

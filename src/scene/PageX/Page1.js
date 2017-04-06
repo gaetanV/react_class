@@ -1,6 +1,10 @@
-(function() {
-    'use strict';
-    Page1= React.createClass({
+import React from 'react';
+import $ from 'jquery';
+
+import ScrollY from 'class/ScrollY';
+
+
+const Page1= React.createClass({
         componentDidMount: function() {
              var d= $(this.refs.Main).find(".longclick");
             
@@ -89,5 +93,6 @@
                 </ScrollY>
             )
         }
-    });
-})(); 
+});
+
+export default Page1;

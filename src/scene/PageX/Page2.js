@@ -1,6 +1,10 @@
-(function() {
-    'use strict';
-    Page2= React.createClass({
+import React from 'react';
+import PanelY from 'class/PanelY';
+import Page5 from 'pageY/Page5';
+import Page6 from 'pageY/Page6';
+import Page7 from 'pageY/Page7';
+
+const Page2= React.createClass({
         render: function() {
             return (  
                   <div>
@@ -8,5 +12,6 @@
                   </div>
             )
         }
-    });
-})(); 
+});
+    
+export default Page2;
