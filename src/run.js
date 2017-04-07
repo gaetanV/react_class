@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import MenuX from 'class/MenuX';
 import PanelX from 'class/PanelX';
 
-import PanelX_Interface from 'class/PanelX_Interface';
+import PanelX_Interface from 'interface/PanelX_Interface';
 
 
 

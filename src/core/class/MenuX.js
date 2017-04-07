@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import PanelX_Interface from 'class/PanelX_Interface';
+import PanelX_Interface from 'interface/PanelX_Interface';
 
 class MenuX extends React.Component {
     constructor(props) {

@@ -13,9 +13,12 @@ module.exports = {
     },
     resolve: {
         alias: {
-            class: __dirname+"/class/",
+            class: __dirname+"/core/class/",
+            dom: __dirname+"/core/dom/",
+            interface: __dirname+"/core/interface",
             pageX: __dirname+"/scene/PageX/",
             pageY: __dirname+"/scene/PageY/",
+            DOM:__dirname+"/core/lib/DOM",
         }
     }
 
