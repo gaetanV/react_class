@@ -1,6 +1,5 @@
 * {margin: 0; padding: 0;}
 .menu {
-    width:500px;
     position: absolute;
     top:0;
     z-index: 50;
@@ -22,7 +21,6 @@
    width: 100%;
    bottom:0;
 }
-
 .page{
     padding: 10px;
     max-width: 900px;
@@ -32,18 +30,20 @@
 .page p{
     margin: 20px 0;
 }
-.Page1{
+#contenair  .bloc0{
     background:#ccc;
 }
-.Page2{
+#contenair  .bloc1{
     background:#ddd;
 }
-.Page3{
+#contenair  .bloc2{
     background:#ccc;
 }
-.Page4{
+#contenair  .bloc3{
     background:#ddd;
 }
+
+
 .longclick{
 
     padding: 10px; 

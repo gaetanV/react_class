@@ -9,7 +9,6 @@ const ScrollY = React.createClass({
         this.refs.Scroll.touchevent('scrollDown', this.scrollDown);
         this.refs.Scroll.touchevent('touchY', this.moveY);
     },
-
     moveY: function () {
         var cible = $(this.refs.Scroll);
         var cibleHeight = cible.outerHeight();

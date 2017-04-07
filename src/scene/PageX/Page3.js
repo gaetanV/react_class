@@ -1,8 +1,8 @@
 import React from 'react';
 import ScrollY from 'class/ScrollY';
 
-const Page3 = React.createClass({
-    render: function () {
+class Page3 extends React.Component {
+    render() {
         return (
                 <ScrollY> 
                     <div className="page">
@@ -19,8 +19,8 @@ const Page3 = React.createClass({
                         </p>
                     </div>
                 </ScrollY>
-                )
+       )
     }
-});
+};
 
 export default Page3;

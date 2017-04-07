@@ -8,10 +8,10 @@ const PanelX_Interface = class {
     }
     extend(func) {
         if (!this.menu && func instanceof this.feedback) {
-            this.menu = func.menu;
+            this.menu = func.menu.bind(func);
         }
         if (!this.panel && func instanceof PanelX) {
-            this.panel = func.panel;
+            this.panel = func.panel.bind(func);
         }
     }
 }

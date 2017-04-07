@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Page4 = React.createClass({
-    render: function () {
+class Page4 extends React.Component {
+    render() {
         return (
                 <div className="page">
                     <h1>Page 4</h1>
@@ -15,6 +15,6 @@ const Page4 = React.createClass({
                 </div>
                 )
     }
-});
+};
 
 export default Page4;
