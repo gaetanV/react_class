@@ -1,21 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import MenuX from 'class/MenuX';
 import PanelX from 'class/PanelX';
-
 import PanelX_Interface from 'interface/PanelX_Interface';
-
-
-
 import Page1 from 'pageX/Page1';
 import Page2 from 'pageX/Page2';
 import Page3 from 'pageX/Page3';
 import Page4 from 'pageX/Page4';
 
 var panelInterface = new PanelX_Interface(MenuX);
-var secquence = new PanelX_Interface(MenuX);
-
 
 ReactDOM.render(
         <section>
@@ -27,4 +20,5 @@ ReactDOM.render(
         ,
         document.getElementById('Panel')
 );
+
 DOM.selection(false);

@@ -7,11 +7,10 @@ class PanelX_Dom {
      
         this.panelWidth = 0;
         this.dom.css({
-            height: "100%",
+            transition: "all 0.5s ease-out","-webkit-transition": "all 0.5s ease-out",
             position: "absolute",
             overflow: "hidden",
-            transition: "all 0.5s ease-out",
-            "-webkit-transition": "all 0.5s ease-out",
+            height: "100%",
         });
         this.collection = [];
         this.dom.find(".panelX").map((i,val)=>{
@@ -39,19 +38,17 @@ class PanelX_Dom {
     }
     move(){
         return new Promise((resolve) => {
-   
-             this.dom.move("x", 1, (dom) => {
-              var cran = dom.vitesse.x > 3? 
+            this.dom.move("x", 1, (dom) => {
+                var cran = dom.vitesse.x > 3? 
                     dom.pos.start.x - dom.pos.end.x > 0 ?
                         Math.ceil((-dom.pos.end.x) / this.panelWidth) 
                         : Math.floor((-dom.pos.end.x) / this.panelWidth)
                     :Math.round((-dom.pos.end.x) / this.panelWidth);
-                    resolve(
-                        cran < 0 || cran > this.length() - 1?
-                            cran = cran < 0 ? 0 : this.length() - 1
-                            :cran
-                    );
-            
+                resolve(
+                    cran < 0 || cran > this.length() - 1?
+                    cran = cran < 0 ? 0 : this.length() - 1
+                    :cran
+                );
             });
         });
     }

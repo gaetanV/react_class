@@ -14,7 +14,7 @@ class PanelX extends React.Component {
          this.interface = props.interface;
          this.Panel = false;
          this.state = { active: 0 };
-
+         this.ping = [];
      }
     componentDidMount() {
         this.Panel = new PanelX_Dom(ReactDOM.findDOMNode(this.refs.Panel));
@@ -40,12 +40,15 @@ class PanelX extends React.Component {
     panel(index) {
         this.state.active = this.Panel.setActive(index);
         this.interface.menu(this.state.active);
+        if(this.ping[this.state.active]){
+            this.ping[this.state.active]();
+        }
     }
     render() {
         return (
             <div ref="Main">
                 <section ref="Panel" className="PanelContenair" >  
-                    {this.props.object.map((Result,i) => {return (<div  key={i} className={"panelX bloc"+i}><Result/></div>)})}   
+                    {this.props.object.map((Result,i) => {return (<div  key={i} className={"panelX bloc"+i}><Result pong={(func)=>{this.ping[i]=func}} /></div>)})}   
                 </section>
             </div>
         );

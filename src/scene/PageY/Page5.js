@@ -1,7 +1,14 @@
 import React from 'react';
 
-const  Page5 = React.createClass({
-    render: function() {
+class Page5 extends React.Component {
+    constructor(props) {
+         super(props);
+         props.pong (this.componentDidSelect)
+    }
+    componentDidSelect(){
+        console.log("pong5");
+    }
+    render() {
         return (
             <div className="page">
             <h1>Page 5</h1>
@@ -18,6 +25,6 @@ const  Page5 = React.createClass({
             </div>
         )
     }
-});
+};
     
 export default Page5;

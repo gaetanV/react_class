@@ -7,6 +7,7 @@ class PanelY extends React.Component {
     constructor(props) {
          super(props);
          this.state = {animate: false, nbPanel: 0, active: false, panel: [], panelHeight: 0, Panel: ""};
+         this.ping = [];
      }
     componentDidMount() {
          $(ReactDOM.findDOMNode(this.refs.Main)).css({ overflow: "hidden", position: "absolute", });
@@ -30,6 +31,9 @@ class PanelY extends React.Component {
     }
     panel(index) {
         this.state.active = this.Panel.setActive(index);
+        if(this.ping[this.state.active]){
+            this.ping[this.state.active]();
+        }
     }
     render() {
         return (
@@ -39,7 +43,7 @@ class PanelY extends React.Component {
                             (Result,i) => {
                                 return (
                                     <div key={i} className={"panelY "+Result.displayName}>
-                                         <div  ref={"panel"+i} className="panelScroll" ><Result/></div>
+                                         <div  ref={"panel"+i} className="panelScroll" ><Result pong={(func)=>{this.ping[i]=func}} /></div>
                                     </div>
                                 )
                             }

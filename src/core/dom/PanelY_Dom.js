@@ -16,17 +16,16 @@ class PanelY_Dom {
         this.dom.find(".panelY").map((i,val)=>{
              this.collection.push($(val));
         })
-        this.calc();
-        
+        this.calc();      
+    }
+    length(){
+        return this.collection.length;
     }
     calc(){
         this.dom.css({ height: this.length() * 100 + "%"});
         this.collection.map((val)=>{ 
             val.css({height: 100 / this.length() + "%", width: "100%"});
         })
-    }
-    length(){
-        return this.collection.length;
     }
     updateSize(){
         this.panelHeight = this.dom.outerHeight() / this.length();
@@ -40,7 +39,7 @@ class PanelY_Dom {
     move(){
         return new Promise((resolve) => {
              this.dom.move("y", 1, (dom) => {
-                   var cran = dom.vitesse.y > 3 ?
+                var cran = dom.vitesse.y > 3 ?
                 dom.pos.start.y - dom.pos.end.y > 0 ?
                     Math.ceil((-dom.pos.end.y) / this.panelHeight) 
                     : Math.floor((-dom.pos.end.y) / this.panelHeight) 

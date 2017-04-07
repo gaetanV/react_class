@@ -5,9 +5,17 @@ import Page6 from 'pageY/Page6';
 import Page7 from 'pageY/Page7';
 
 class Page2 extends React.Component {
-        render() {
-            return (<PanelY   object={[Page5,Page6,Page7]}/>)
-        }
-};
-    
+    constructor(props) {
+        super(props);
+        props.pong(this.componentDidSelect)
+    }
+    componentDidSelect() {
+        console.log("pong2");
+    }
+    render() {
+        return (<PanelY   object={[Page5, Page6, Page7]}/>)
+    }
+}
+;
+
 export default Page2;

@@ -1,8 +1,17 @@
 import React from 'react';
 import $ from 'jquery';
+import DOM from 'DOM';
 import ScrollY from 'class/ScrollY';
 
 class Page1 extends React.Component {
+    
+    constructor(props) {
+         super(props);
+         props.pong (this.componentDidSelect)
+    }
+    componentDidSelect(){
+        console.log("pong1");
+    }
     componentDidMount() {
         var d = $(this.refs.Main).find(".longclick");
         for (var i = 0; i < d.length; i++) {

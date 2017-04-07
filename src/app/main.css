@@ -14,7 +14,6 @@
     line-height: 30px;
     text-align: center;
 }
-
 #contenair {
    position: absolute;
    top:30px;
@@ -31,22 +30,19 @@
 .page p{
     margin: 20px 0;
 }
-#contenair  .bloc0{
+#contenair .bloc0{
     background:#ccc;
 }
-#contenair  .bloc1{
+#contenair .bloc1{
     background:#ddd;
 }
-#contenair  .bloc2{
+#contenair .bloc2{
     background:#ccc;
 }
-#contenair  .bloc3{
+#contenair .bloc3{
     background:#ddd;
 }
-
-
 .longclick{
-
     padding: 10px; 
     background: #fff;
     transition:"all 1s ease-out";

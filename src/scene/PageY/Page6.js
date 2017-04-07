@@ -1,6 +1,13 @@
 import React from 'react';
 
 class Page6 extends React.Component {
+    constructor(props) {
+         super(props);
+         props.pong (this.componentDidSelect)
+    }
+    componentDidSelect(){
+        console.log("pong6");
+    }
     render(){
         return (
             <div className="page">

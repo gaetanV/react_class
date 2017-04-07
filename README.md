@@ -2,9 +2,7 @@
 
 (c) Gaetan Vigneron <gaetan@webworkshops.fr>
 
-V Beta 0.1.0
-
-06/04/2017
+07/04/2017
 
 ----------------
 REACT TOOLS
