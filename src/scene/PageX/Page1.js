@@ -15,8 +15,8 @@ class Page1 extends React.Component {
     componentDidMount() {
         var d = $(this.refs.Main).find(".longclick");
         for (var i = 0; i < d.length; i++) {
-            d[i].touchevent('longclick', this.longclick);
-            d[i].touchevent('longclickup', this.longclickup);
+            DOM(d[i]).touchevent('longclick', this.longclick);
+            DOM(d[i]).touchevent('longclickup', this.longclickup);
         }
     }
     longclickup(e) {

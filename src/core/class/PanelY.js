@@ -6,7 +6,7 @@ import PanelY_Dom from 'dom/PanelY_Dom';
 class PanelY extends React.Component {
     constructor(props) {
          super(props);
-         this.state = {animate: false, nbPanel: 0, active: false, panel: [], panelHeight: 0, Panel: ""};
+         this.state = { active: false};
          this.ping = [];
      }
     componentDidMount() {
@@ -53,4 +53,5 @@ class PanelY extends React.Component {
         );
     }
 };
+
 export default PanelY;     

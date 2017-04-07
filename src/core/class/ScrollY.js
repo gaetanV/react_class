@@ -3,19 +3,28 @@ import $ from 'jquery';
 import DOM from 'DOM';
 
 class ScrollY extends React.Component {
+    
+     constructor(props) {
+        
+         super(props);
+         
+        this.scroll = false;
+     }
 
     componentDidMount() {
         $(this.refs.Scroll).css({position: "relative", transition: "all 0.5s ease-out", "-webkit-transition": "all 0.5s ease-out"});
-        this.refs.Scroll.touchevent('scrollUp', this.scrollUp.bind(this));
-        this.refs.Scroll.touchevent('scrollDown', this.scrollDown.bind(this));
-        this.refs.Scroll.touchevent('touchY', this.moveY.bind(this));
+        this.scroll = DOM($(this.refs.Scroll));
+        this.scroll.touchevent('scrollUp', this.scrollUp.bind(this));
+        this.scroll.touchevent('scrollDown', this.scrollDown.bind(this));
+        this.scroll.touchevent('touchY', this.moveY.bind(this));
     }
     moveY() {
         var cible = $(this.refs.Scroll);
         var cibleHeight = cible.outerHeight();
         var panelHeight = cible.parent().outerHeight();
         if (panelHeight < cibleHeight) {
-            this.refs.Scroll.move("y", 1, (dom) => {
+       
+            this.scroll.move("y", 1, (dom) => {         
                 if (-dom.pos.end.y < 0 || -dom.pos.end.y > (cibleHeight - panelHeight)) {
                     var x = 0;
                     -dom.pos.end.y > 0  && (x = -cibleHeight + panelHeight);

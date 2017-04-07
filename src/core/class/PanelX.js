@@ -21,10 +21,13 @@ class PanelX extends React.Component {
         $(ReactDOM.findDOMNode(this.refs.Main)).css({ overflow: "hidden", position: "absolute", });
 
         this.Panel.dom.touchevent('touchX', () => {
+            
+            
             this.Panel.move().then( (index) => {
                 this.panel(index);
             })
         });
+        console.log(this.Panel.dom[0]);
         this.Panel.dom.touchevent("resizeX", this.refreshDom.bind(this));
        
         this.refreshDom();

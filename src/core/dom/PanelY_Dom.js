@@ -3,7 +3,7 @@ import DOM from 'DOM';
 
 class PanelY_Dom {
     constructor(dom){
-        this.dom = $(dom);
+        this.dom = DOM($(dom));;
      
         this.panelHeight = 0;
         this.dom.css({

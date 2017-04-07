@@ -3,7 +3,7 @@ import DOM from 'DOM';
 
 class PanelX_Dom {
     constructor(dom){
-        this.dom = $(dom);
+        this.dom = DOM($(dom));
      
         this.panelWidth = 0;
         this.dom.css({
@@ -38,7 +38,9 @@ class PanelX_Dom {
     }
     move(){
         return new Promise((resolve) => {
+              
             this.dom.move("x", 1, (dom) => {
+             
                 var cran = dom.vitesse.x > 3? 
                     dom.pos.start.x - dom.pos.end.x > 0 ?
                         Math.ceil((-dom.pos.end.x) / this.panelWidth) 
