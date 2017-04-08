@@ -4,7 +4,7 @@ import DOM from 'DOM';
 class PanelX_Dom {
     constructor(dom){
         this.dom = DOM($(dom));
-     
+        this.dom.selection(false);
         this.panelWidth = 0;
         this.dom.css({
             transition: "all 0.5s ease-out","-webkit-transition": "all 0.5s ease-out",
@@ -46,8 +46,8 @@ class PanelX_Dom {
                     :Math.round((-dom.pos.end.x) / this.panelWidth);
                 resolve(
                     cran < 0 || cran > this.length() - 1?
-                    cran = cran < 0 ? 0 : this.length() - 1
-                    :cran
+                        cran = cran < 0 ? 0 : this.length() - 1
+                        :cran
                 );
             });
         });

@@ -4,6 +4,7 @@ import DOM from 'DOM';
 class PanelY_Dom {
     constructor(dom){
         this.dom = DOM($(dom));;
+        this.dom.selection(false);
         this.panelHeight = 0;
         this.dom.css({
             transition: "all 0.5s ease-out", "-webkit-transition": "all 0.5s ease-out",

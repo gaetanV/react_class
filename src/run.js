@@ -22,4 +22,3 @@ ReactDOM.render(
         document.getElementById('Panel')
 );
 
-DOM.selection(false);
