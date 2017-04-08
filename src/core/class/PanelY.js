@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import PanelY_Dom from 'dom/PanelY_Dom';
+import PropTypes from 'prop-types';
 
 class PanelY extends React.Component {
     constructor(props) {
@@ -11,9 +12,7 @@ class PanelY extends React.Component {
      }
     componentDidMount() {
          $(ReactDOM.findDOMNode(this.refs.Main)).css({ overflow: "hidden", position: "absolute", });
-      
         this.Panel = new PanelY_Dom(ReactDOM.findDOMNode(this.refs.Panel));
-        
         this.Panel.dom.touchevent("resizeY", this.refreshDom.bind(this));
         this.Panel.dom.touchevent('touchY', () => {
             this.Panel.move().then( (index) => {
@@ -39,7 +38,7 @@ class PanelY extends React.Component {
         return (
             <div ref="Main">
                 <section ref="Panel" className="PanelContenair" >  
-                    {this.props.object.map(
+                    {this.props.collection.map(
                             (Result,i) => {
                                 return (
                                     <div key={i} className={"panelY "+Result.displayName}>
@@ -52,6 +51,12 @@ class PanelY extends React.Component {
             </div>
         );
     }
+};
+
+PanelY.propTypes = {
+    collection:  PropTypes.arrayOf( function(props,propName){
+            if(!React.Component.isPrototypeOf(props[propName])){return new Error ("error violation collection  is not a Component");}
+    }),
 };
 
 export default PanelY;     

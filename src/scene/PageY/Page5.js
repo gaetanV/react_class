@@ -3,7 +3,7 @@ import React from 'react';
 class Page5 extends React.Component {
     constructor(props) {
          super(props);
-         props.pong (this.componentDidSelect)
+         props.pong (this.componentDidSelect);
     }
     componentDidSelect(){
         console.log("pong5");

@@ -37,10 +37,8 @@ class PanelX_Dom {
         return active;
     }
     move(){
-        return new Promise((resolve) => {
-              
+        return new Promise((resolve) => {       
             this.dom.move("x", 1, (dom) => {
-             
                 var cran = dom.vitesse.x > 3? 
                     dom.pos.start.x - dom.pos.end.x > 0 ?
                         Math.ceil((-dom.pos.end.x) / this.panelWidth) 

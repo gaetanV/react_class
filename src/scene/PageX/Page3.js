@@ -4,7 +4,7 @@ import ScrollY from 'class/ScrollY';
 class Page3 extends React.Component {
     constructor(props) {
         super(props);
-        props.pong(this.componentDidSelect)
+        props.pong(this.componentDidSelect);
     }
     componentDidSelect() {
         console.log("pong3");

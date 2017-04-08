@@ -7,15 +7,14 @@ import Page7 from 'pageY/Page7';
 class Page2 extends React.Component {
     constructor(props) {
         super(props);
-        props.pong(this.componentDidSelect)
+        props.pong(this.componentDidSelect);
     }
     componentDidSelect() {
         console.log("pong2");
     }
     render() {
-        return (<PanelY   object={[Page5, Page6, Page7]}/>)
+        return (<PanelY   collection={[Page5, Page6, Page7]}/>)
     }
 }
-;
 
 export default Page2;

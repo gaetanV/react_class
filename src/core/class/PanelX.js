@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import PanelX_Interface from 'interface/PanelX_Interface';
 import PanelX_Dom from 'dom/PanelX_Dom';
+import PropTypes from 'prop-types';
+import PanelX_Interface from 'interface/PanelX_Interface';
+
 
 class PanelX extends React.Component {
     constructor(props) {
-        
          super(props);
-         
-         if(props.interface instanceof PanelX_Interface === false){throw ("error violation injector");}
-         props.interface.extend(this);
-         this.interface = props.interface;
+         this.interface = false;
+         if(props.interface){
+             this.interface = props.interface;
+             props.interface.extend(this);
+         }
          this.Panel = false;
          this.state = { active: 0 };
          this.ping = [];
@@ -19,20 +21,14 @@ class PanelX extends React.Component {
     componentDidMount() {
         this.Panel = new PanelX_Dom(ReactDOM.findDOMNode(this.refs.Panel));
         $(ReactDOM.findDOMNode(this.refs.Main)).css({ overflow: "hidden", position: "absolute", });
-
         this.Panel.dom.touchevent('touchX', () => {
-            
-            
             this.Panel.move().then( (index) => {
                 this.panel(index);
             })
         });
-        console.log(this.Panel.dom[0]);
         this.Panel.dom.touchevent("resizeX", this.refreshDom.bind(this));
-       
         this.refreshDom();
-        this.panel(this.state.active);
-        
+        this.panel(this.state.active); 
     }
     refreshDom(){
         var dom = $(ReactDOM.findDOMNode(this.refs.Main)).parent();
@@ -42,7 +38,9 @@ class PanelX extends React.Component {
     }
     panel(index) {
         this.state.active = this.Panel.setActive(index);
-        this.interface.menu(this.state.active);
+        if(this.interface){
+             this.interface.menu(this.state.active);
+        }
         if(this.ping[this.state.active]){
             this.ping[this.state.active]();
         }
@@ -51,12 +49,22 @@ class PanelX extends React.Component {
         return (
             <div ref="Main">
                 <section ref="Panel" className="PanelContenair" >  
-                    {this.props.object.map((Result,i) => {return (<div  key={i} className={"panelX bloc"+i}><Result pong={(func)=>{this.ping[i]=func}} /></div>)})}   
+                    {this.props.collection.map((Result,i) => {return (<div  key={i} className={"panelX bloc"+i}><Result pong={(func)=>{this.ping[i]=func}} /></div>)})}   
                 </section>
             </div>
         );
      }
 };
 
+PanelX.propTypes = {
+    interface: function(props,propName){
+        if(props[propName]){
+             if(props[propName] instanceof PanelX_Interface === false){return new Error ("error interface violation injector");}
+        }
+    },
+    collection:  PropTypes.arrayOf( function(props,propName){
+            if(!React.Component.isPrototypeOf(props[propName])){return new Error ("error violation collection  is not a Component");}
+    }),
+};
 
 export default PanelX;        

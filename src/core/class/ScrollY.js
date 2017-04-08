@@ -1,16 +1,13 @@
 import React from 'react';
 import $ from 'jquery';
 import DOM from 'DOM';
+import PropTypes from 'prop-types';
 
 class ScrollY extends React.Component {
-    
-     constructor(props) {
-        
-         super(props);
-         
+    constructor(props) {
+        super(props);
         this.scroll = false;
-     }
-
+    }
     componentDidMount() {
         $(this.refs.Scroll).css({position: "relative", transition: "all 0.5s ease-out", "-webkit-transition": "all 0.5s ease-out"});
         this.scroll = DOM($(this.refs.Scroll));
@@ -19,42 +16,47 @@ class ScrollY extends React.Component {
         this.scroll.touchevent('touchY', this.moveY.bind(this));
     }
     moveY() {
-        var cible = $(this.refs.Scroll);
-        var cibleHeight = cible.outerHeight();
-        var panelHeight = cible.parent().outerHeight();
+        var cibleHeight = this.scroll.outerHeight();
+        var panelHeight = this.scroll.parent().outerHeight();
         if (panelHeight < cibleHeight) {
-       
-            this.scroll.move("y", 1, (dom) => {         
+            this.scroll.move("y", 1, (dom) => {
                 if (-dom.pos.end.y < 0 || -dom.pos.end.y > (cibleHeight - panelHeight)) {
                     var x = 0;
-                    -dom.pos.end.y > 0  && (x = -cibleHeight + panelHeight);
-                    cible.css({top: x + "px"});
+                    -dom.pos.end.y > 0 && (x = -cibleHeight + panelHeight);
+                    this.scroll.css({top: x + "px"});
                 }
             });
         }
     }
-    scrollDown(e) {
-        var cran = 300;
-        var cible = $(this.refs.Scroll);
-        var cibleHeight = cible.outerHeight();
-        var y = parseInt(cible.css("top"));
-        if (-y + cran < (cibleHeight - cible.parent().outerHeight())) {
-            y -= cran;
+    scrollDown() {
+        var cibleHeight = this.scroll.outerHeight();
+        var panelHeight = this.scroll.parent().outerHeight();
+        var y = parseInt(this.scroll.css("top"));
+        if (-y + this.props.cran < (cibleHeight - panelHeight)) {
+            y -= this.props.cran;
         } else {
-            y = -(cibleHeight - cible.parent().outerHeight());
+            y = -(cibleHeight - panelHeight);
         }
-        cible.css({top: y + "px"});
+        this.scroll.css({top: y + "px"});
     }
-    scrollUp(e) {
-        var cible = $(this.refs.Scroll);
-        var y = parseInt(cible.css("top"));
-        var cran = 200;
+    scrollUp() {
+        var y = parseInt(this.scroll.css("top"));
         y > 0 && (y = 0);
-        y < 0 && (y += cran);
-        cible.css({top: y + "px"});
+        y < 0 && (y += this.props.cran);
+        this.scroll.css({top: y + "px"});
     }
     render() {
         return (<div ref="Scroll">{this.props.children}</div>);
     }
+}
+
+ScrollY.defaultProps = {
+    cran: 300,
 };
+
+ScrollY.propTypes = {
+    cran: PropTypes.number,
+    children: PropTypes.node.isRequired,
+};
+
 export default ScrollY;   

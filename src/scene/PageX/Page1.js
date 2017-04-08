@@ -4,10 +4,9 @@ import DOM from 'DOM';
 import ScrollY from 'class/ScrollY';
 
 class Page1 extends React.Component {
-    
     constructor(props) {
          super(props);
-         props.pong (this.componentDidSelect)
+         props.pong (this.componentDidSelect);
     }
     componentDidSelect(){
         console.log("pong1");
@@ -15,8 +14,9 @@ class Page1 extends React.Component {
     componentDidMount() {
         var d = $(this.refs.Main).find(".longclick");
         for (var i = 0; i < d.length; i++) {
-            DOM(d[i]).touchevent('longclick', this.longclick);
-            DOM(d[i]).touchevent('longclickup', this.longclickup);
+            var dom = DOM(d[i]);
+            dom.touchevent('longclick', this.longclick);
+            dom.touchevent('longclickup', this.longclickup);
         }
     }
     longclickup(e) {

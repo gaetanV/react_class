@@ -13,9 +13,9 @@ var panelInterface = new PanelX_Interface(MenuX);
 
 ReactDOM.render(
         <section>
-            <MenuX  interface={panelInterface} object={["page1", "page2", "page3", "page4"]}/>
+            <MenuX  interface={panelInterface} collection={["page1", "page2", "page3", "page4"]}/>
             <div id="contenair">
-                <PanelX interface={panelInterface} object={[Page1, Page2, Page3, Page4]}/>
+                <PanelX interface={panelInterface} collection={[Page1, Page2, Page3, Page4]}/>
             </div>
         </section>
         ,
