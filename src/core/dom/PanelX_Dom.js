@@ -47,7 +47,7 @@ class PanelX_Dom {
                 resolve(
                     cran < 0 || cran > this.length() - 1?
                         cran = cran < 0 ? 0 : this.length() - 1
-                        :cran
+                     :cran
                 );
             });
         });

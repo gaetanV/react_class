@@ -45,9 +45,9 @@ class PanelY_Dom {
                     : Math.floor((-dom.pos.end.y) / this.panelHeight) 
                 :Math.round((-dom.pos.end.y) / this.panelHeight);
                 resolve(
-                     cran < 0 || cran > this.length() - 1?
-                         cran = cran < 0 ? 0 : this.length() - 1
-                         :cran
+                    cran < 0 || cran > this.length() - 1?
+                        cran = cran < 0 ? 0 : this.length() - 1
+                    :cran
                  )
             });
         });

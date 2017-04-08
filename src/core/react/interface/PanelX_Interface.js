@@ -15,4 +15,5 @@ const PanelX_Interface = class {
         }
     }
 }
+
 export default PanelX_Interface;        

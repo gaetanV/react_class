@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DOM from 'DOM';
-import MenuX from 'class/MenuX';
+
 import PanelX from 'class/PanelX';
 import PanelX_Interface from 'interface/PanelX_Interface';
+
+import MenuX from 'menu/MenuX';
 import Page1 from 'pageX/Page1';
 import Page2 from 'pageX/Page2';
 import Page3 from 'pageX/Page3';

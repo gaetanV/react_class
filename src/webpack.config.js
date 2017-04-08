@@ -17,9 +17,10 @@ module.exports = {
     resolve: {
         extensions: ['.js'],
         alias: {
-            class: __dirname+"/core/class/",
+            class: __dirname+"/core/react/class",
+            interface: __dirname+"/core/react/interface",
             dom: __dirname+"/core/dom/",
-            interface: __dirname+"/core/interface",
+            menu: __dirname+"/scene/Menu/",
             pageX: __dirname+"/scene/PageX/",
             pageY: __dirname+"/scene/PageY/",
             DOM:__dirname+"/core/lib/DOM",
