@@ -9,8 +9,11 @@ class Page1 extends React.Component {
          super(props);
          this.state = {test: 0 };
          this.interface = new ScrollY_Interface(Page1);
+         this.interface.extend(this);
          props.pong (this.componentDidSelect.bind(this));
-         
+    }
+    componentDidReload(){
+          console.log("Get your API Page 1");
     }
     componentDidSelect(bool){
         if(bool){

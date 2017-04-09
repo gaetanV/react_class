@@ -7,10 +7,10 @@ import ScrollY_Interface from 'interface/ScrollY_Interface';
 class ScrollY extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {position: 0 , canMove: 0};
+        this.state = {position: 0, canMove: false};
         this.scroll = false;
         this.interface = false;
-        if(props.interface){
+        if (props.interface) {
             this.interface = props.interface;
             props.interface.extend(this);
         }
@@ -36,10 +36,16 @@ class ScrollY extends React.Component {
         this.scroll.dom.touchevent('resizeY', this.refreshDom.bind(this));
         this.refreshDom();
     }
-    resetY(){
+    resetY() {
         this.state.position = this.scroll.setPositionY(0);
     }
     moveY(y) {
+        
+        if (this.state.position + y > 200) {
+            if (this.interface.componentDidReload) {
+                this.interface.componentDidReload();
+            }
+        }
         this.state.position = this.scroll.moveY(y);
     }
     refreshDom() {
@@ -59,9 +65,11 @@ ScrollY.defaultProps = {
 ScrollY.propTypes = {
     cran: PropTypes.number,
     children: PropTypes.node.isRequired,
-    interface: function(props,propName){
-        if(props[propName]){
-             if(props[propName] instanceof ScrollY_Interface === false){return new Error ("error interface violation injector");}
+    interface: function (props, propName) {
+        if (props[propName]) {
+            if (props[propName] instanceof ScrollY_Interface === false) {
+                return new Error("error interface violation injector");
+            }
         }
     },
 };
