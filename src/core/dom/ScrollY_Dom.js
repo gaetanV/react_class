@@ -14,8 +14,10 @@ class ScrollY_Dom {
         this.canScroll = panelHeight < cibleHeight ? true : false;
         if (!this.canScroll) {
             this.setPositionY(0);
+            this.limit = 0;
+        } else {
+            this.limit = -(cibleHeight - panelHeight);
         }
-        this.limit = -(cibleHeight - panelHeight);
         return this.positionY;
     }
     move() {
@@ -31,15 +33,13 @@ class ScrollY_Dom {
     }
     moveY(y) {
         if (this.canScroll) {
-            var yDom = this.positionY;
-            yDom = y + yDom;
-            yDom > 0 && (yDom = 0);
-            yDom < this.limit && (yDom = this.limit);
-            this.setPositionY(yDom);
+            this.setPositionY(y + this.positionY);
         }
         return this.positionY;
     }
     setPositionY(y) {
+        y > 0 && (y = 0);
+        y < this.limit && (y = this.limit);
         this.positionY = y;
         this.dom.css({top: this.positionY + "px"});
         return this.positionY;

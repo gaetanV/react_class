@@ -1,8 +1,8 @@
 ```
 
-(c) Gaetan Vigneron <gaetan@webworkshops.fr>
+(c) Gaetan Vigneron
 
-07/04/2017
+09/04/2017
 
 ----------------
 REACT TOOLS
@@ -15,5 +15,6 @@ ScollY
 DOM HTML MOBILE
 ----------------
 https://github.com/gaetanV/dom_mobile
+
 
 ```

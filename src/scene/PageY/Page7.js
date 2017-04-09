@@ -5,8 +5,12 @@ class Page7 extends React.Component {
          super(props);
          props.pong (this.componentDidSelect);
     }
-    componentDidSelect(){
-        console.log("pong7");
+    componentDidSelect(bool) {
+        if (bool) {
+            console.log("pong7 in")
+        } else {
+            console.log("pong7 out")
+        }
     }
     render() {
         return (

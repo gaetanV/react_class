@@ -13,6 +13,9 @@ const PanelX_Interface = class {
         if (!this.panel && func instanceof PanelX) {
             this.panel = func.panel.bind(func);
         }
+        if (!this.pingMe && func instanceof PanelX) {
+            this.pingMe = func.pingMe.bind(func);
+        }
     }
 }
 

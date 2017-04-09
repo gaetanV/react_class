@@ -2,14 +2,23 @@ import React from 'react';
 import $ from 'jquery';
 import DOM from 'DOM';
 import ScrollY from 'class/ScrollY';
+import ScrollY_Interface from 'interface/ScrollY_Interface';
 
 class Page1 extends React.Component {
     constructor(props) {
          super(props);
-         props.pong (this.componentDidSelect);
+         this.state = {test: 0 };
+         this.interface = new ScrollY_Interface(Page1);
+         props.pong (this.componentDidSelect.bind(this));
+         
     }
-    componentDidSelect(){
-        console.log("pong1");
+    componentDidSelect(bool){
+        if(bool){
+             console.log("pong1 in")
+        }else{
+            this.interface.resetY();
+            console.log("pong1 out")
+        }
     }
     componentDidMount() {
         var d = $(this.refs.Main).find(".longclick");
@@ -27,8 +36,9 @@ class Page1 extends React.Component {
         $(e.target).css({"background": "red"});
     }
     render() {
+
         return (
-                <ScrollY> 
+                <ScrollY interface={this.interface}> 
                     <div ref="Main"  className="page">
                         <h1>Page 1</h1>
                         <p className="longclick" onMouseDown={this.handleClick} >

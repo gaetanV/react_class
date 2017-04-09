@@ -6,8 +6,12 @@ class Page3 extends React.Component {
         super(props);
         props.pong(this.componentDidSelect);
     }
-    componentDidSelect() {
-        console.log("pong3");
+    componentDidSelect(bool) {
+        if (bool) {
+            console.log("pong3 in")
+        } else {
+            console.log("pong3 out")
+        }
     }
     render() {
         return (
@@ -26,8 +30,9 @@ class Page3 extends React.Component {
                         </p>
                     </div>
                 </ScrollY>
-       )
+                )
     }
-};
+}
+;
 
 export default Page3;

@@ -5,8 +5,12 @@ class Page4 extends React.Component {
         super(props);
         props.pong(this.componentDidSelect);
     }
-    componentDidSelect() {
-        console.log("pong4");
+    componentDidSelect(bool) {
+        if (bool) {
+            console.log("pong4 in")
+        } else {
+            console.log("pong4 out")
+        }
     }
     render() {
         return (
@@ -22,6 +26,7 @@ class Page4 extends React.Component {
                 </div>
                 )
     }
-};
+}
+;
 
 export default Page4;

@@ -7,7 +7,7 @@ import PanelX_Interface from 'interface/PanelX_Interface';
 class PanelX extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { active: 0 };
+        this.state = { active: false };
         this.interface = false;
         this.Panel = false;
         this.Container = false;
@@ -27,7 +27,7 @@ class PanelX extends React.Component {
         });
         this.Panel.dom.touchevent("resizeX", this.refreshDom.bind(this));
         this.refreshDom();
-        this.panel(this.state.active); 
+        this.panel(0); 
     }
     refreshDom(){
         this.Container.updateSize(); 
@@ -35,12 +35,21 @@ class PanelX extends React.Component {
         this.Panel.setActive(this.state.active);
     }
     panel(index) {
+        var tempIndex = this.state.active;
         this.state.active = this.Panel.setActive(index);
-        if(this.interface){
-             this.interface.menu(this.state.active);
+        if( tempIndex !== this.state.active){
+            if(this.ping[tempIndex]){
+                this.ping[tempIndex](false);
+            };
+            this.pingMe(true)
+            if(this.interface){
+                 this.interface.menu(this.state.active);
+            };
         }
+    }
+    pingMe(bool){
         if(this.ping[this.state.active]){
-            this.ping[this.state.active]();
+           this.ping[this.state.active](bool);
         }
     }
     render() {
