@@ -25,7 +25,7 @@ export function PanelX({ children, id }) {
   const container = useRef(null);
   const inner = useRef(null);
 
-  const moveToCran = useCallback(
+  const setCranAndMove = useCallback(
     (newCran) => {
       setCran(newCran);
       inner.current.style.transitionDuration = "0.5s";
@@ -39,9 +39,9 @@ export function PanelX({ children, id }) {
 
   useEffect(() => {
     if (cranMemo !== undefined && cranMemo !== cran) {
-      moveToCran(cranMemo);
+      setCranAndMove(cranMemo);
     }
-  }, [cranMemo, cran, moveToCran]);
+  }, [cranMemo, cran, setCranAndMove]);
 
   const getCranFromMove = useCallback(
     (speedGestureX, posXStart, posXEnd) => {
@@ -75,7 +75,7 @@ export function PanelX({ children, id }) {
           dom.pos.start.x,
           dom.pos.end.x
         );
-        moveToCran(newCran);
+        setCranAndMove(newCran);
         if (emitCran && id && newCran !== cran) {
           emitCran(id, newCran, "x");
         }
@@ -84,7 +84,7 @@ export function PanelX({ children, id }) {
     return () => {
       iInner["data-touchevent"] = {};
     };
-  }, [width, cran, moveToCran, emitCran, id, getCranFromMove]);
+  }, [width, cran, setCranAndMove, emitCran, id, getCranFromMove]);
 
   useEffect(() => {
     if (emitCran && id) {

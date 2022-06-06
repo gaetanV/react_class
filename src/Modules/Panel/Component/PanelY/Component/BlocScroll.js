@@ -1,3 +1,3 @@
-export function BlocScroll({children}) {
+export function BlocScroll({ children }) {
   return <div>{children}</div>;
 }

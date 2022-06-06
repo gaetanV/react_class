@@ -7,8 +7,7 @@ function CranProvider({ children, synch }) {
 
   let emitCran = useCallback(
     (id, cran, mess = "") => {
-
-      console.log(id,"emitCran", mess);
+      console.log(id, "emitCran", mess);
 
       setCranMemo((prevState) => {
         let r = { ...prevState, [id]: cran };

@@ -3,7 +3,6 @@ import { CranContext } from "../../Modules/Panel/Context/CranContext";
 import styles from "./MenuCran.module.css";
 
 export function MenuCran({ idCran }) {
-
   const cranContext = useContext(CranContext);
   const emitCran = cranContext?.emitCran;
   const cran = cranContext?.cranMemo?.[idCran];
