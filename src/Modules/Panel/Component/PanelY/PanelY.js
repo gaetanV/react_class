@@ -12,8 +12,8 @@ import { BlocFull } from "./Component/BlocFull";
 import { CranContext } from "../../Context/CranContext";
 
 import styles from "./PanelY.module.css";
-
 const CRAN_INIT = 0;
+const ERROR_TYPE_BLOC = " not allow in PanelYChild set BLocFull or BlocScroll";
 
 export function PanelY({ children, id }) {
   const cranContext = useContext(CranContext);
@@ -32,9 +32,7 @@ export function PanelY({ children, id }) {
   let listChildren = useMemo(() => {
     Children.toArray(children).forEach((a) => {
       if (a.type !== BlocFull && a.type !== BlocScroll) {
-        throw new Error(
-          a.type + " not allow in PanelYChild set BLocFull or BlocScroll"
-        );
+        throw new Error(a.type + ERROR_TYPE_BLOC);
       }
     });
     return Children.map(children, (child) => child);
@@ -52,10 +50,12 @@ export function PanelY({ children, id }) {
   const setCranAndMove = useCallback(
     (newCran) => {
       setCran(newCran);
+
       let distance = 0;
       for (let i = 0; i < newCran; i++) {
         distance += childrenDomHeights[i];
       }
+
       inner.current.style.top = `-${distance}px`;
     },
     [childrenDomHeights]
@@ -160,10 +160,7 @@ export function PanelY({ children, id }) {
             );
             break;
           default:
-            throw new Error(
-              listChildren[idElement].type +
-                " not allow in PanelYChild set BLocFull or BlocScroll"
-            );
+            throw new Error(listChildren[idElement].type + ERROR_TYPE_BLOC);
         }
       }
     },
@@ -177,30 +174,88 @@ export function PanelY({ children, id }) {
   );
 
   useEffect(() => {
-    cranMemo !== cran && setCranAndMove(cranMemo);
+    cran !== undefined &&
+      cranMemo !== undefined &&
+      cranMemo !== cran &&
+      setCranAndMove(cranMemo);
   }, [cranMemo, cran, setCranAndMove]);
 
+  let moveToAfterResize = useCallback(
+    (domHeightsFromChildren) => {
+      let response = 0;
+      let distance = 0;
+      for (let i = 0; i < cran; i++) {
+        distance += domHeightsFromChildren[i];
+      }
+
+      switch (listChildren[cran].type) {
+        case BlocFull:
+          response = distance;
+          break;
+        case BlocScroll:
+          let olddistance = 0;
+          for (let i = 0; i < cran; i++) {
+            olddistance += childrenDomHeights[i];
+          }
+
+          const oldPos = -parseInt(inner.current.style.top);
+          const oldSize = childrenDomHeights[cran];
+          const newSize = domHeightsFromChildren[cran];
+          let diff = oldPos - olddistance;
+
+          response = distance + (diff * newSize) / oldSize;
+          break;
+        default:
+          throw new Error(listChildren[cran].type + ERROR_TYPE_BLOC);
+      }
+      return response;
+    },
+    [listChildren, childrenDomHeights, cran]
+  );
+
   useEffect(() => {
+    let getDomHeightsFromChildren = () => {
+      return Array.from(inner.current.children).map((childDom) => {
+        return childDom.offsetHeight;
+      });
+    };
+
+    let observeDomChange;
+
     const changeHeight = () => {
-      const domHeightsFromChildren = Array.from(inner.current.children).map(
-        (childDom) => {
-          return childDom.offsetHeight;
-        }
-      );
-      let sum = domHeightsFromChildren.reduce((a, b) => a + b, 0);
-      if (sum !== height) {
-        setHeight(sum);
-        setchildrenDomHeights(domHeightsFromChildren);
+      const domHeightsFromChildren = getDomHeightsFromChildren();
+      const oldSum = domHeightsFromChildren.reduce((a, b) => a + b, 0);
+
+      if (oldSum !== height) {
+        clearInterval(observeDomChange);
+
+        // wait if something have change after 100 ms
+        setTimeout(() => {
+          if (
+            JSON.stringify(getDomHeightsFromChildren()) ===
+            JSON.stringify(domHeightsFromChildren)
+          ) {
+            inner.current.style.top = `-${moveToAfterResize(
+              domHeightsFromChildren
+            )}px`;
+
+            setHeight(oldSum);
+            setchildrenDomHeights(domHeightsFromChildren);
+          }
+          observeDomChange = setInterval(
+            () => changeHeight(observeDomChange),
+            100
+          );
+        }, 100);
       }
     };
-    changeHeight();
 
-    const observeDomChange = setInterval(changeHeight, 100);
+    observeDomChange = setInterval(changeHeight, 100);
 
     return () => {
       clearInterval(observeDomChange);
     };
-  }, [height, cran]);
+  }, [height, setCranAndMove, moveToAfterResize]);
 
   useEffect(() => {
     const iInner = inner.current;
