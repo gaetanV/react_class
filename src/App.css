@@ -11,15 +11,33 @@ p {
   margin: 0;
 }
 
-.flexBox {
+.flex2ColReverse {
   display: flex;
   width: 100%;
   height: 100%;
+  flex-direction: column-reverse;
 }
 
-.flexBox > div {
-  flex: 1 1 auto;
-  width: 100%;
+.flex2ColReverse > div {
+  flex: none;
+}
+
+.flex2ColReverse div:nth-child(1) {
+  padding-bottom: 20px;
+}
+
+.flex2ColReverse div:nth-child(2) {
+  flex: 1 1;
+}
+
+@media (orientation: landscape) {
+  .flex2ColReverse {
+    flex-direction: row;
+  }
+  .flex2ColReverse > div {
+    flex: 1 1;
+    padding: 0;
+  }
 }
 
 .coverImage {
@@ -44,9 +62,21 @@ p {
 }
 
 #panelDemo p {
-  font-size: 40px;
+  font-size: 20px;
   max-width: 900px;
-  padding: 2vw 2vw;
+  padding: 20px 20px;
+}
+
+@media (min-width: 600px) {
+  #panelDemo p {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 900px) {
+  #panelDemo p {
+    font-size: 40px;
+  }
 }
 
 #panelDemo .lecture > p {
@@ -56,4 +86,34 @@ p {
 #panelDemo .lecture .icon {
   width: 60px;
   margin: 0 20px 0px 0;
+}
+
+.bgBear {
+  background-image: url(./Assets/bear-600w.jpg);
+}
+
+@media (min-width: 600px) {
+  .bgBear {
+    background-image: url(./Assets/bear.jpg);
+  }
+}
+
+.bgForest {
+  background-image: url(./Assets/forest-600w.png);
+}
+
+@media (min-width: 600px) {
+  .bgForest {
+    background-image: url(./Assets/forest.png);
+  }
+}
+
+.bgTheEnd {
+  background-image: url(./Assets/theend-600w.png);
+}
+
+@media (min-width: 600px) {
+  .bgTheEnd {
+    background-image: url(./Assets/theend.png);
+  }
 }

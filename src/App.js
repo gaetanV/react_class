@@ -12,9 +12,11 @@ import { MenuCran } from "./Component/MenuCran/MenuCran";
 import chaise from "./Assets/chaise.png";
 import lit from "./Assets/lit.png";
 import soupe from "./Assets/soupe.png";
-import bear from "./Assets/bear.jpg";
+
 import forest from "./Assets/forest.png";
-import theend from "./Assets/theend.png";
+import forest600w from "./Assets/forest-600w.png";
+import bear from "./Assets/bear.jpg";
+import bear600w from "./Assets/bear-600w.jpg";
 
 DOM.extend(HTMLElement);
 
@@ -27,7 +29,7 @@ function App() {
           <PanelX id="panel-menu">
             <PanelY id="panelA">
               <BlocFull>
-                <div className="flexBox">
+                <div className="flex2ColReverse">
                   <div style={{ color: "#FEF7E5", backgroundColor: "#201C21" }}>
                     <div className="center">
                       <p style={{ maxWidth: "400px" }}>
@@ -38,10 +40,7 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <div
-                      className="coverImage"
-                      style={{ backgroundImage: `url("${forest}")` }}
-                    ></div>
+                    <div className="coverImage bgForest"></div>
                   </div>
                 </div>
               </BlocFull>
@@ -65,6 +64,19 @@ function App() {
                       elle la cassa.
                     </p>
                     <p>
+                      <picture>
+                        <source
+                          media="(max-width: 599px)"
+                          srcSet={forest600w}
+                        />
+                        <source media="(min-width: 600px)" srcSet={forest} />
+                        <img
+                          style={{ width: "100%", marginBottom: "100px" }}
+                          src={forest600w}
+                          alt="forest"
+                        />
+                      </picture>
+
                       <b>
                         "Ce n'est pas grave, se dit-elle, continuons la visite".
                       </b>
@@ -93,15 +105,12 @@ function App() {
                 </div>
               </BlocFull>
               <BlocFull>
-                <div
-                  className="coverImage"
-                  style={{ backgroundImage: `url("${theend}")` }}
-                ></div>
+                <div className="coverImage bgTheEnd"></div>
               </BlocFull>
             </PanelY>
             <PanelY id="panelB">
               <BlocFull>
-                <div className="flexBox">
+                <div className="flex2ColReverse">
                   <div style={{ backgroundColor: "#F3F3F5", color: "#554842" }}>
                     <div className="center">
                       <p style={{ maxWidth: "400px" }}>
@@ -111,10 +120,7 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <div
-                      className="coverImage"
-                      style={{ backgroundImage: `url("${bear}")`}}
-                    ></div>
+                    <div className="coverImage bgBear"></div>
                   </div>
                 </div>
               </BlocFull>
@@ -136,6 +142,15 @@ function App() {
                       chaise!!"
                     </p>
                     <p>
+                      <picture>
+                        <source media="(max-width: 599px)" srcSet={bear600w} />
+                        <source media="(min-width: 600px)" srcSet={bear} />
+                        <img
+                          style={{ width: "100%", marginBottom: "100px" }}
+                          src={bear600w}
+                          alt="bear"
+                        />
+                      </picture>
                       <b>
                         D'un pas décidé le grand ours se dirigea vers l'escalier
                         qu'il grimpa quatre à quatre suivi par le moyen ours et
@@ -162,10 +177,7 @@ function App() {
                 </div>
               </BlocFull>
               <BlocFull>
-                <div
-                  className="coverImage"
-                  style={{ backgroundImage: `url("${theend}")` }}
-                ></div>
+                <div className="coverImage bgTheEnd"></div>
               </BlocFull>
             </PanelY>
           </PanelX>
