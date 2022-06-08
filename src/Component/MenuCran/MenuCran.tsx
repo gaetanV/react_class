@@ -1,15 +1,20 @@
 import { useCallback, useContext } from "react";
-import { CranContext } from "../../Modules/Panel/Context/CranContext";
+import { CranContext, CranProviderType } from "../../Modules/Panel/Context/CranContext";
 import styles from "./MenuCran.module.css";
 
-export function MenuCran({ idCran }) {
-  const cranContext = useContext(CranContext);
+interface Props {
+  idCran: string,
+}
+
+export function MenuCran({ idCran }:Props) {
+
+  const cranContext = useContext(CranContext) as CranProviderType;
   const emitCran = cranContext?.emitCran;
   const cran = cranContext?.cranMemo?.[idCran];
 
-  const handleClick = new useCallback((cran) => {
-    emitCran(idCran, cran, "menu");
-  });
+  const handleClick = useCallback((newcran:number) : void => {
+    emitCran(idCran, newcran, "menu");
+  },[emitCran,idCran]);
 
   return (
     <>

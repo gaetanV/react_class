@@ -1,4 +1,5 @@
 import {
+  ReactNode,
   Children,
   useCallback,
   useContext,
@@ -6,19 +7,27 @@ import {
   useRef,
   useState,
 } from "react";
-import { CranContext } from "../../Context/CranContext";
+
+
+import { CranContext, CranProviderType } from "../../Context/CranContext";
 import styles from "./PanelX.module.css";
+
+interface Props {
+  children: ReactNode,
+  id:string
+}
 
 const CRAN_INIT = 0;
 
-export function PanelX({ children, id }) {
-  const cranContext = useContext(CranContext);
+export function PanelX({ children, id }:Props) {
+
+  const cranContext = useContext(CranContext) as CranProviderType;
 
   const emitCran = cranContext?.emitCran;
   const cranMemo = cranContext?.cranMemo?.[id];
 
-  const [width, setWidth] = useState(0);
-  const [cran, setCran] = useState(CRAN_INIT);
+  const [width, setWidth] = useState<number>(0);
+  const [cran, setCran] = useState<number>(CRAN_INIT);
 
   const [nbElement] = useState(Children.count(children));
 
@@ -26,7 +35,7 @@ export function PanelX({ children, id }) {
   const inner = useRef(null);
 
   const setCranAndMove = useCallback(
-    (newCran) => {
+    (newCran : number) => {
       setCran(newCran);
       inner.current.style.transitionDuration = "0.5s";
       setTimeout(() => {
@@ -44,7 +53,7 @@ export function PanelX({ children, id }) {
   }, [cranMemo, cran, setCranAndMove]);
 
   const getCranFromMove = useCallback(
-    (speedGestureX, posXStart, posXEnd) => {
+    (speedGestureX :number, posXStart:number, posXEnd:number) => {
       let newCran;
       if (speedGestureX > 1.5) {
         newCran =
@@ -69,7 +78,7 @@ export function PanelX({ children, id }) {
   useEffect(() => {
     const iInner = inner.current;
     inner.current.touchevent("touchX", () => {
-      inner.current.move("x", 1, (dom) => {
+      inner.current.move("x", 1, (dom:any) => {
         let newCran = getCranFromMove(
           dom.vitesse.x,
           dom.pos.start.x,

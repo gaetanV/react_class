@@ -1,5 +1,6 @@
 import {
   Children,
+  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -7,16 +8,25 @@ import {
   useRef,
   useState,
 } from "react";
+
 import { BlocScroll } from "./Component/BlocScroll";
 import { BlocFull } from "./Component/BlocFull";
-import { CranContext } from "../../Context/CranContext";
+import { CranContext, CranProviderType } from "../../Context/CranContext";
 
 import styles from "./PanelY.module.css";
+import { ReactElement } from "react";
+
 const CRAN_INIT = 0;
 const ERROR_TYPE_BLOC = " not allow in PanelYChild set BLocFull or BlocScroll";
 
-export function PanelY({ children, id }) {
-  const cranContext = useContext(CranContext);
+interface Props {
+  children: ReactNode,
+  id:string
+}
+
+export function PanelY({ children, id }:Props) {
+
+  const cranContext = useContext(CranContext) as CranProviderType;
 
   const emitCran = cranContext?.emitCran;
   const cranMemo = cranContext?.cranMemo?.[id];
@@ -29,17 +39,20 @@ export function PanelY({ children, id }) {
   const container = useRef(null);
   const [height, setHeight] = useState(0);
 
-  let listChildren = useMemo(() => {
-    Children.toArray(children).forEach((a) => {
-      if (a.type !== BlocFull && a.type !== BlocScroll) {
-        throw new Error(a.type + ERROR_TYPE_BLOC);
+  let listChildren : ReactElement<any>[] = useMemo(() => {
+
+    let childrenArray = Children.toArray(children).map((child) => child as ReactElement<any>);
+    
+    childrenArray.forEach((reactELement) => {
+      if (reactELement.type !== BlocFull && reactELement.type !== BlocScroll) {
+        throw new Error(reactELement.type + ERROR_TYPE_BLOC);
       }
     });
-    return Children.map(children, (child) => child);
+    return childrenArray;
   }, [children]);
 
   const emitCranIfNecesary = useCallback(
-    (newCran, message = "y") => {
+    (newCran : number , message : string = "y") : void => {
       if (cranMemo !== undefined && emitCran && id && cranMemo !== newCran) {
         emitCran(id, newCran, message);
       }
@@ -48,28 +61,21 @@ export function PanelY({ children, id }) {
   );
 
   const setCranAndMove = useCallback(
-    (newCran) => {
+    (newCran : number) : void => {
       setCran(newCran);
-
-      let distance = 0;
-      for (let i = 0; i < newCran; i++) {
-        distance += childrenDomHeights[i];
-      }
-
-      inner.current.style.top = `-${distance}px`;
+      inner.current.style.top = `-${childrenDomHeights.slice(0,newCran).reduce((a,b)=>a+b,0)}px`;
     },
     [childrenDomHeights]
   );
 
   const getElementIdAndRemainingByDistance = useCallback(
-    (distanceY) => {
+    (distanceY : number) : { idElement:number , remainingDistance:number } => {
       const idElement = childrenDomHeights.findIndex((elementWidth) => {
         if (elementWidth < distanceY) {
           distanceY = distanceY - elementWidth;
           return false;
-        } else {
-          return true;
         }
+        return true;
       });
       return {
         idElement: idElement,
@@ -80,7 +86,7 @@ export function PanelY({ children, id }) {
   );
 
   const moveSpeedGesture = useCallback(
-    (idElement, sens) => {
+    (idElement: number, sens : number) : void  => {
       if (sens > 0 && idElement !== childrenDomHeights.length - 1) {
         idElement++;
       }
@@ -91,7 +97,7 @@ export function PanelY({ children, id }) {
   );
 
   const moveBlocFull = useCallback(
-    (idElement, remainingDistance) => {
+    (idElement : number, remainingDistance : number) : void  => {
       if (
         idElement !== childrenDomHeights.length - 1 &&
         remainingDistance > childrenDomHeights[idElement] / 2
@@ -104,14 +110,22 @@ export function PanelY({ children, id }) {
     [childrenDomHeights, setCranAndMove, emitCranIfNecesary]
   );
 
+  type  moveSwitchType = 
+    (
+      posYStart:number, 
+      posYEnd:number, 
+      speedGestureY:number
+    ) => void
+   
+
   const moveBlocScroll = useCallback(
     (
-      posYStart,
-      posYEnd,
-      speedGestureY,
-      moveSwitch,
-      idElement,
-      remainingDistance
+      posYStart: number,
+      posYEnd: number,
+      speedGestureY: number,
+      moveSwitch: moveSwitchType,
+      idElement: number,
+      remainingDistance: number
     ) => {
       if (speedGestureY > 0) {
         if (childrenDomHeights[idElement] - remainingDistance < 100) {
@@ -136,8 +150,8 @@ export function PanelY({ children, id }) {
     [childrenDomHeights, cran, emitCranIfNecesary, setCranAndMove]
   );
 
-  const moveSwitch = useCallback(
-    (posYStart, posYEnd, speedGestureY) => {
+  const moveSwitch: moveSwitchType = useCallback(
+    (posYStart, posYEnd, speedGestureY)  => {
       let { idElement, remainingDistance } = getElementIdAndRemainingByDistance(
         -posYEnd
       );
@@ -159,8 +173,6 @@ export function PanelY({ children, id }) {
               remainingDistance
             );
             break;
-          default:
-            throw new Error(listChildren[idElement].type + ERROR_TYPE_BLOC);
         }
       }
     },
@@ -174,19 +186,16 @@ export function PanelY({ children, id }) {
   );
 
   useEffect(() => {
-    cran !== undefined &&
+      cran !== undefined &&
       cranMemo !== undefined &&
       cranMemo !== cran &&
       setCranAndMove(cranMemo);
   }, [cranMemo, cran, setCranAndMove]);
 
   let moveToAfterResize = useCallback(
-    (domHeightsFromChildren) => {
+    (domHeightsFromChildren: number[]) => {
       let response = 0;
-      let distance = 0;
-      for (let i = 0; i < cran; i++) {
-        distance += domHeightsFromChildren[i];
-      }
+      let distance = domHeightsFromChildren.slice(0,cran).reduce((a,b)=>a+b,0);
 
       switch (listChildren[cran].type) {
         case BlocFull:
@@ -205,8 +214,7 @@ export function PanelY({ children, id }) {
 
           response = distance + (diff * newSize) / oldSize;
           break;
-        default:
-          throw new Error(listChildren[cran].type + ERROR_TYPE_BLOC);
+       
       }
       return response;
     },
@@ -214,13 +222,13 @@ export function PanelY({ children, id }) {
   );
 
   useEffect(() => {
-    let getDomHeightsFromChildren = () => {
-      return Array.from(inner.current.children).map((childDom) => {
-        return childDom.offsetHeight;
-      });
+
+    let getDomHeightsFromChildren = () : number[]  => {
+      let children: HTMLElement[] = Array.from(inner.current.children);
+      return children.map((childDom:HTMLElement) => childDom.offsetHeight);
     };
 
-    let observeDomChange;
+    let observeDomChange: number;
 
     const changeHeight = () => {
       const domHeightsFromChildren = getDomHeightsFromChildren();
@@ -241,16 +249,17 @@ export function PanelY({ children, id }) {
 
             setHeight(oldSum);
             setchildrenDomHeights(domHeightsFromChildren);
-          }
-          observeDomChange = setInterval(
-            () => changeHeight(observeDomChange),
+          };
+          
+          observeDomChange = window.setInterval(
+            () => changeHeight(),
             100
           );
-        }, 100);
+        }, 50);
       }
     };
 
-    observeDomChange = setInterval(changeHeight, 100);
+    observeDomChange = window.setInterval(changeHeight, 100);
 
     return () => {
       clearInterval(observeDomChange);
@@ -261,7 +270,7 @@ export function PanelY({ children, id }) {
     const iInner = inner.current;
 
     inner.current.touchevent("touchY", () => {
-      inner.current.move("y", 1, (dom) => {
+      inner.current.move("y", 1, (dom:any) => {
         if (-dom.pos.end.y < 0) {
           emitCranIfNecesary(0, "setCranAndMoveAndEmit");
           setCranAndMove(0);
