@@ -1,7 +1,5 @@
 (c) Gaetan Vigneron
 
-07/06/2022
-
 ---
 ![bear](readme-cover.jpg?raw=true)
 
